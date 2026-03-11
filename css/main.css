@@ -289,26 +289,6 @@ section + section {
   animation-delay: 1s;
 }
 
-.opening-enter {
-  margin-top: 30px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 12px 22px;
-  border-radius: 999px;
-  background: var(--text-dark);
-  color: white;
-  border: none;
-  font-family: 'Pretendard', sans-serif;
-  font-size: 12px;
-  letter-spacing: 1px;
-  cursor: pointer;
-  opacity: 0;
-  transform: translateY(16px);
-  animation: openingText .9s ease forwards;
-  animation-delay: 1.4s;
-}
-
 @keyframes openingText {
   to {
     opacity: 1;
@@ -1080,23 +1060,23 @@ section + section {
 .opening-line-item {
   opacity: 0;
   transform: translateY(16px);
-  animation: openingText .8s ease forwards;
+  animation: openingText 0.9s ease forwards;
 }
 
 .opening-title .line-1 {
-  animation-delay: .2s;
+  animation-delay: 0.5s;
 }
 
 .opening-title .line-2 {
-  animation-delay: .8s;
+  animation-delay: 1.0s;
 }
 
 .opening-title .line-3 {
-  animation-delay: 1.4s;
+  animation-delay: 1.5s;
 }
 
 .opening-title .line-4 {
-  animation-delay: 2s;
+  animation-delay: 2.0s;
 }
 
 .opening-title .opening-and {
@@ -1110,4 +1090,24 @@ section + section {
 .opening-title .opening-married {
   margin-top: 12px;
   font-size: 24px;
+}
+
+.opening-enter {
+  margin-top: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 22px;
+  border-radius: 999px;
+  background: var(--text-dark);
+  color: white;
+  border: none;
+  font-family: 'Pretendard', sans-serif;
+  font-size: 12px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(16px);
+  animation: openingText 0.9s ease forwards;
+  animation-delay: 3.0s;
 }
