@@ -1,4 +1,12 @@
 @font-face {
+  font-family: 'AdelioDarmanto';
+  src: url('../fonts/AdelioDarmanto.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
   font-family: 'GyeonggiMillenniumBackground';
   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2410-3@1.0/Batang_Regular.woff') format('woff');
   font-weight: 400;
@@ -441,16 +449,17 @@ section + section {
 .gallery-item {
   width: 100%;
   min-width: 100%;
-  height: 420px;
+  height: 560px;
   flex-shrink: 0;
   overflow: hidden;
-  background: var(--pink-pale);
+  background: #efe7de;
 }
 
 .gallery-item img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  background: #efe7de;
 }
 
 .gallery-arrow {
@@ -646,9 +655,13 @@ section + section {
   background: #e8eaed;
   border-radius: 16px;
   overflow: hidden;
-  height: 260px;
+  height: 320px;
   margin-bottom: 16px;
   box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+}
+
+.google-map-frame {
+  background: #f2f2f2;
 }
 
 #wedding-map {
@@ -1023,7 +1036,7 @@ section + section {
   }
 
   .gallery-item {
-    height: 360px;
+    height: 500px;
   }
 
   .dday-number {
@@ -1033,4 +1046,43 @@ section + section {
   .contacts-grid {
     grid-template-columns: 1fr 1fr;
   }
+	.opening-title {
+	  font-size: 28px;
+	}
+
+	.opening-title .opening-and {
+	  font-size: 22px;
+	}
+
+	.opening-title .opening-married {
+	  font-size: 24px;
+	}
+}
+
+.adellio {
+  font-family: 'AdelioDarmanto', 'GyeonggiMillenniumBackground', serif;
+}
+
+.opening-title {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: openingText .9s ease forwards;
+  animation-delay: .2s;
+  color: var(--text-dark);
+  text-align: center;
+  line-height: 1.5;
+  font-size: 34px;
+  letter-spacing: 2px;
+}
+
+.opening-title .opening-and {
+  font-size: 26px;
+  margin: 4px 0;
+  color: var(--pink);
+  letter-spacing: 4px;
+}
+
+.opening-title .opening-married {
+  margin-top: 10px;
+  font-size: 28px;
 }
