@@ -77,23 +77,53 @@
       }
     }
 
-    if (horizontalGesture) {
-      e.preventDefault();
-      const base = -current * viewport.clientWidth;
-      track.style.transform = `translateX(${base + deltaX}px)`;
+    if (!horizontalGesture) return;
+
+    e.preventDefault();
+
+    const atFirst = current === 0;
+    const atLast = current === slides.length - 1;
+
+    let effectiveDeltaX = deltaX;
+
+    // 첫 사진에서 오른쪽으로 더 못 당기게
+    if (atFirst && deltaX > 0) {
+      effectiveDeltaX = 0;
     }
+
+    // 마지막 사진에서 왼쪽으로 더 못 밀게
+    if (atLast && deltaX < 0) {
+      effectiveDeltaX = 0;
+    }
+
+    const base = -current * viewport.clientWidth;
+    track.style.transform = `translateX(${base + effectiveDeltaX}px)`;
   }, { passive: false });
 
   viewport.addEventListener('touchend', () => {
-    if (horizontalGesture && Math.abs(deltaX) > 50) {
-      if (deltaX < 0) goToNext();
-      else goToPrev();
+    const atFirst = current === 0;
+    const atLast = current === slides.length - 1;
+
+    if (Math.abs(deltaX) > 50) {
+      if (deltaX < 0 && !atLast) {
+        goToNext();
+      } else if (deltaX > 0 && !atFirst) {
+        goToPrev();
+      } else {
+        syncTrack();
+      }
     } else {
       syncTrack();
     }
 
     dragging = false;
     horizontalGesture = false;
+  });
+
+  viewport.addEventListener('touchcancel', () => {
+    dragging = false;
+    horizontalGesture = false;
+    syncTrack();
   });
 
   syncTrack();
