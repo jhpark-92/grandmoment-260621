@@ -21,13 +21,17 @@
 </head>
 <body>
   <div class="opening-overlay" id="opening-overlay">
-    <div class="opening-inner">
-      <div class="opening-kicker">Wedding Invitation</div>
-      <div class="opening-line names">박주현 ♥ 문예진</div>
-      <div class="opening-line date">2026. 06. 21 (일) &nbsp;|&nbsp; PM 2:30</div>
-      <div class="opening-line venue">그랜드모먼트 베일홀 B2</div>
-      <button class="opening-enter" id="opening-enter" type="button">청첩장 열기</button>
-    </div>
+	<div class="opening-inner">
+	  <div class="opening-kicker">Wedding Invitation</div>
+	  <div class="opening-title adellio">
+		<div>박주현</div>
+		<div class="opening-and">AND</div>
+		<div>문예진</div>
+		<div class="opening-married">우리 결혼합니다</div>
+	  </div>
+
+	  <button class="opening-enter" id="opening-enter" type="button">청첩장 열기</button>
+	</div>
   </div>
 
   <audio id="bgm" loop preload="auto">
@@ -120,36 +124,6 @@
       </div>
     </section>
 
-    <!-- GALLERY -->
-    <section class="gallery-section fade-in">
-      <div class="section-label">Gallery</div>
-      <div class="section-title">사진첩</div>
-
-      <div class="gallery-slider">
-        <button class="gallery-arrow prev" type="button" aria-label="이전 사진">‹</button>
-
-        <div class="gallery-scroll">
-          <div class="gallery-track">
-            <div class="gallery-item"><img src="assets/gallery-01.png" alt="웨딩 사진 1"></div>
-            <div class="gallery-item"><img src="assets/gallery-02.png" alt="웨딩 사진 2"></div>
-            <div class="gallery-item"><img src="assets/gallery-03.png" alt="웨딩 사진 3"></div>
-            <div class="gallery-item"><img src="assets/gallery-04.png" alt="웨딩 사진 4"></div>
-            <div class="gallery-item"><img src="assets/gallery-05.png" alt="웨딩 사진 5"></div>
-            <div class="gallery-item"><img src="assets/gallery-06.png" alt="웨딩 사진 6"></div>
-            <div class="gallery-item"><img src="assets/gallery-07.png" alt="웨딩 사진 7"></div>
-            <div class="gallery-item"><img src="assets/gallery-08.png" alt="웨딩 사진 8"></div>
-            <div class="gallery-item"><img src="assets/gallery-09.png" alt="웨딩 사진 9"></div>
-            <div class="gallery-item"><img src="assets/gallery-10.png" alt="웨딩 사진 10"></div>
-            <div class="gallery-item"><img src="assets/gallery-11.png" alt="웨딩 사진 11"></div>
-          </div>
-        </div>
-
-        <button class="gallery-arrow next" type="button" aria-label="다음 사진">›</button>
-      </div>
-
-      <p class="gallery-hint">화살표 버튼으로 사진을 넘겨보세요</p>
-      <div class="gallery-indicator" id="gallery-indicator">1 / 1</div>
-    </section>
 
     <!-- CALENDAR -->
     <section class="calendar-section fade-in">
@@ -237,15 +211,17 @@
       <div class="section-label">Location</div>
       <div class="section-title">오시는 길</div>
 
-      <div class="map-container">
-        <div id="wedding-map">
-          <div class="map-loading">
-            <div class="map-icon">🗺️</div>
-            <div class="map-label">지도를 불러올 준비 중입니다</div>
-            <div class="map-sub">네이버 지도 JavaScript 키를 연결하면<br>이 영역에 실제 지도가 표시됩니다.</div>
-          </div>
-        </div>
-      </div>
+		<div class="map-container google-map-frame">
+		  <iframe
+			src="https://www.google.com/maps?q=35.1456024,129.1003727&z=17&output=embed"
+			width="100%"
+			height="100%"
+			style="border:0;"
+			allowfullscreen=""
+			loading="lazy"
+			referrerpolicy="no-referrer-when-downgrade">
+		  </iframe>
+		</div>
 
       <div class="venue-info">
         <div class="venue-name">그랜드모먼트 베일홀 B2</div>
@@ -264,6 +240,37 @@
           카카오 지도
         </a>
       </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="gallery-section fade-in">
+      <div class="section-label">Gallery</div>
+      <div class="section-title">사진첩</div>
+
+      <div class="gallery-slider">
+        <button class="gallery-arrow prev" type="button" aria-label="이전 사진">‹</button>
+
+        <div class="gallery-scroll">
+          <div class="gallery-track">
+            <div class="gallery-item"><img src="assets/gallery-01.png" alt="웨딩 사진 1"></div>
+            <div class="gallery-item"><img src="assets/gallery-02.png" alt="웨딩 사진 2"></div>
+            <div class="gallery-item"><img src="assets/gallery-03.png" alt="웨딩 사진 3"></div>
+            <div class="gallery-item"><img src="assets/gallery-04.png" alt="웨딩 사진 4"></div>
+            <div class="gallery-item"><img src="assets/gallery-05.png" alt="웨딩 사진 5"></div>
+            <div class="gallery-item"><img src="assets/gallery-06.png" alt="웨딩 사진 6"></div>
+            <div class="gallery-item"><img src="assets/gallery-07.png" alt="웨딩 사진 7"></div>
+            <div class="gallery-item"><img src="assets/gallery-08.png" alt="웨딩 사진 8"></div>
+            <div class="gallery-item"><img src="assets/gallery-09.png" alt="웨딩 사진 9"></div>
+            <div class="gallery-item"><img src="assets/gallery-10.png" alt="웨딩 사진 10"></div>
+            <div class="gallery-item"><img src="assets/gallery-11.png" alt="웨딩 사진 11"></div>
+          </div>
+        </div>
+
+        <button class="gallery-arrow next" type="button" aria-label="다음 사진">›</button>
+      </div>
+
+      <p class="gallery-hint">화살표 버튼으로 사진을 넘겨보세요</p>
+      <div class="gallery-indicator" id="gallery-indicator">1 / 1</div>
     </section>
 
     <!-- TRANSPORT -->
