@@ -1086,6 +1086,10 @@ section + section {
   animation-delay: 2.0s;
 }
 
+.opening-title .opening-subtitle {
+  font-size: 0.7em; /* 기존보다 작게 */
+}
+
 .opening-enter {
   margin-top: 30px;
   display: inline-flex;
