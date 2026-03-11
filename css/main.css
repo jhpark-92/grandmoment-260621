@@ -1070,15 +1070,33 @@ section + section {
 }
 
 .opening-title {
-  opacity: 0;
-  transform: translateY(16px);
-  animation: openingText .9s ease forwards;
-  animation-delay: .2s;
   color: var(--text-dark);
   text-align: center;
   line-height: 1.7;
   font-size: 31px;
   letter-spacing: 1px;
+}
+
+.opening-line-item {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: openingText .8s ease forwards;
+}
+
+.opening-title .line-1 {
+  animation-delay: .2s;
+}
+
+.opening-title .line-2 {
+  animation-delay: .8s;
+}
+
+.opening-title .line-3 {
+  animation-delay: 1.4s;
+}
+
+.opening-title .line-4 {
+  animation-delay: 2s;
 }
 
 .opening-title .opening-and {
