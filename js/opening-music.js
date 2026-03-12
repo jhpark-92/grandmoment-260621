@@ -1,4 +1,23 @@
 (function initOpeningAndMusic() {
+	if ('scrollRestoration' in history) {
+	  history.scrollRestoration = 'manual';
+	}
+
+	function forceScrollTop() {
+	  window.scrollTo(0, 0);
+	  document.documentElement.scrollTop = 0;
+	  document.body.scrollTop = 0;
+	}
+	forceScrollTop();
+
+	window.addEventListener('load', () => {
+	  forceScrollTop();
+	  attemptImmediatePlay();
+	});
+
+	window.addEventListener('pageshow', () => {
+	  forceScrollTop();
+	});
   const audio = document.getElementById('bgm');
   const toggle = document.getElementById('music-toggle');
   const opening = document.getElementById('opening-overlay');
@@ -74,11 +93,27 @@
     }
   }
 
-  document.body.style.overflow = 'hidden';
+    if ('scrollRestoration' in history) {
+	  history.scrollRestoration = 'manual';
+	}
 
-  window.addEventListener('load', () => {
-    attemptImmediatePlay();
-  });
+	function forceScrollTop() {
+	  window.scrollTo(0, 0);
+	  document.documentElement.scrollTop = 0;
+	  document.body.scrollTop = 0;
+	}
+
+	document.body.style.overflow = 'hidden';
+	forceScrollTop();
+
+	window.addEventListener('load', () => {
+	  forceScrollTop();
+	  attemptImmediatePlay();
+	});
+
+	window.addEventListener('pageshow', () => {
+	  forceScrollTop();
+	});
 
   if (openBtn) {
     openBtn.addEventListener('click', async () => {
