@@ -1,30 +1,22 @@
 (function initOpeningAndMusic() {
-	if ('scrollRestoration' in history) {
-	  history.scrollRestoration = 'manual';
-	}
-
-	function forceScrollTop() {
-	  window.scrollTo(0, 0);
-	  document.documentElement.scrollTop = 0;
-	  document.body.scrollTop = 0;
-	}
-	forceScrollTop();
-
-	window.addEventListener('load', () => {
-	  forceScrollTop();
-	  attemptImmediatePlay();
-	});
-
-	window.addEventListener('pageshow', () => {
-	  forceScrollTop();
-	});
   const audio = document.getElementById('bgm');
   const toggle = document.getElementById('music-toggle');
   const opening = document.getElementById('opening-overlay');
   const openBtn = document.getElementById('opening-enter');
 
-  let autoPlaySucceeded = false;
   let interactionBound = false;
+  let autoplayTried = false;
+  let openingClosed = false;
+
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+
+  function forceScrollTop() {
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }
 
   function syncMusicButton() {
     if (!toggle || !audio) return;
@@ -33,10 +25,13 @@
 
   async function tryPlayMusic() {
     if (!audio) return false;
+    if (!audio.paused) {
+      syncMusicButton();
+      return true;
+    }
 
     try {
       await audio.play();
-      autoPlaySucceeded = true;
       syncMusicButton();
       return true;
     } catch (e) {
@@ -49,7 +44,6 @@
     window.removeEventListener('touchstart', handleFirstInteraction, passiveOnce);
     window.removeEventListener('pointerdown', handleFirstInteraction, passiveOnce);
     window.removeEventListener('keydown', handleFirstInteraction, passiveOnce);
-    window.removeEventListener('scroll', handleFirstInteraction, passiveOnce);
     interactionBound = false;
   }
 
@@ -69,57 +63,50 @@
     window.addEventListener('touchstart', handleFirstInteraction, passiveOnce);
     window.addEventListener('pointerdown', handleFirstInteraction, passiveOnce);
     window.addEventListener('keydown', handleFirstInteraction, passiveOnce);
-    window.addEventListener('scroll', handleFirstInteraction, passiveOnce);
-  }
-
-  function closeOpening() {
-    if (opening) {
-      opening.classList.add('hidden');
-    }
-    document.body.style.overflow = 'auto';
-  }
-
-  function preloadAudio() {
-    if (!audio) return;
-    audio.preload = 'auto';
-    audio.load();
   }
 
   async function attemptImmediatePlay() {
-    preloadAudio();
+    if (autoplayTried) return;
+    autoplayTried = true;
+
+    if (!audio) return;
+
+    audio.preload = 'auto';
+
     const played = await tryPlayMusic();
     if (!played) {
       bindFirstInteractionAutoPlay();
     }
   }
 
-    if ('scrollRestoration' in history) {
-	  history.scrollRestoration = 'manual';
-	}
+  function closeOpening() {
+    if (openingClosed) return;
+    openingClosed = true;
 
-	function forceScrollTop() {
-	  window.scrollTo(0, 0);
-	  document.documentElement.scrollTop = 0;
-	  document.body.scrollTop = 0;
-	}
+    if (opening) {
+      opening.classList.add('hidden');
+    }
+    document.body.style.overflow = 'auto';
+    forceScrollTop();
+  }
 
-	document.body.style.overflow = 'hidden';
-	forceScrollTop();
+  document.body.style.overflow = 'hidden';
+  forceScrollTop();
 
-	window.addEventListener('load', () => {
-	  forceScrollTop();
-	  attemptImmediatePlay();
-	});
+  window.addEventListener('load', () => {
+    forceScrollTop();
+    attemptImmediatePlay();
+  });
 
-	window.addEventListener('pageshow', () => {
-	  forceScrollTop();
-	});
+  window.addEventListener('pageshow', () => {
+    forceScrollTop();
+  });
 
   if (openBtn) {
     openBtn.addEventListener('click', async () => {
       closeOpening();
 
-      if (audio.paused) {
+      if (audio && audio.paused) {
         const played = await tryPlayMusic();
         if (!played) {
           bindFirstInteractionAutoPlay();
@@ -145,9 +132,7 @@
     });
   }
 
-  document.addEventListener('visibilitychange', () => {
-    syncMusicButton();
-  });
+  document.addEventListener('visibilitychange', syncMusicButton);
 
   syncMusicButton();
 })();

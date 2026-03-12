@@ -19,6 +19,7 @@
   let horizontalGesture = false;
   let rafId = null;
   let pendingX = null;
+  let slideWidth = viewport.clientWidth;
 
   const thumbs = slides.map((slide, index) => {
     const img = slide.querySelector('img');
@@ -28,16 +29,13 @@
     btn.setAttribute('aria-label', `${index + 1}번 사진 보기`);
     btn.innerHTML = `<img src="${img.getAttribute('src')}" alt="${img.getAttribute('alt') || `웨딩 사진 ${index + 1}`}">`;
 
-    btn.addEventListener('click', () => {
-      goTo(index);
-    });
-
+    btn.addEventListener('click', () => goTo(index));
     thumbsRoot.appendChild(btn);
     return btn;
   });
 
   function setTranslate(x, useTransition) {
-    track.style.transition = useTransition ? 'transform 0.28s ease-out' : 'none';
+    track.style.transition = useTransition ? 'transform 0.22s ease-out' : 'none';
     track.style.transform = `translate3d(${x}px, 0, 0)`;
   }
 
@@ -45,17 +43,11 @@
     thumbs.forEach((thumb, index) => {
       thumb.classList.toggle('active', index === current);
     });
-
-    const active = thumbs[current];
-    active?.scrollIntoView({
-      inline: 'center',
-      block: 'nearest',
-      behavior: 'auto'
-    });
   }
 
   function syncTrack(useTransition = true) {
-    const x = -(current * viewport.clientWidth);
+    slideWidth = viewport.clientWidth;
+    const x = -(current * slideWidth);
     setTranslate(x, useTransition);
 
     if (indicator) {
@@ -67,18 +59,6 @@
 
   function goTo(index) {
     current = Math.max(0, Math.min(slides.length - 1, index));
-    syncTrack(true);
-  }
-
-  function goToNext() {
-    if (current >= slides.length - 1) return;
-    current += 1;
-    syncTrack(true);
-  }
-
-  function goToPrev() {
-    if (current <= 0) return;
-    current -= 1;
     syncTrack(true);
   }
 
@@ -97,11 +77,14 @@
     dragging = true;
     horizontalGesture = false;
     pendingX = null;
+
     if (rafId) {
       cancelAnimationFrame(rafId);
       rafId = null;
     }
-    syncTrack(false);
+
+    slideWidth = viewport.clientWidth;
+    setTranslate(-(current * slideWidth), false);
   }, { passive: true });
 
   viewport.addEventListener('touchmove', (e) => {
@@ -131,12 +114,10 @@
     const atLast = current === slides.length - 1;
 
     let effectiveDeltaX = deltaX;
+    if (atFirst && deltaX > 0) effectiveDeltaX = deltaX * 0.15;
+    if (atLast && deltaX < 0) effectiveDeltaX = deltaX * 0.15;
 
-    if (atFirst && deltaX > 0) effectiveDeltaX = deltaX * 0.18;
-    if (atLast && deltaX < 0) effectiveDeltaX = deltaX * 0.18;
-
-    const base = -(current * viewport.clientWidth);
-    pendingX = base + effectiveDeltaX;
+    pendingX = -(current * slideWidth) + effectiveDeltaX;
 
     if (!rafId) {
       rafId = requestAnimationFrame(renderDrag);
@@ -146,23 +127,17 @@
   viewport.addEventListener('touchend', () => {
     const atFirst = current === 0;
     const atLast = current === slides.length - 1;
-    const threshold = Math.min(90, viewport.clientWidth * 0.18);
+    const threshold = Math.min(70, slideWidth * 0.15);
 
     if (Math.abs(deltaX) > threshold) {
-      if (deltaX < 0 && !atLast) {
-        goToNext();
-      } else if (deltaX > 0 && !atFirst) {
-        goToPrev();
-      } else {
-        syncTrack(true);
-      }
-    } else {
-      syncTrack(true);
+      if (deltaX < 0 && !atLast) current += 1;
+      else if (deltaX > 0 && !atFirst) current -= 1;
     }
 
     dragging = false;
     horizontalGesture = false;
     pendingX = null;
+    syncTrack(true);
   });
 
   viewport.addEventListener('touchcancel', () => {
