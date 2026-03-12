@@ -420,19 +420,37 @@ section + section {
 }
 
 .gallery-scroll {
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
   border-radius: 18px;
   background: #ede7db;
   box-shadow: var(--shadow);
-  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  touch-action: pan-x;
+  scrollbar-width: none;
+}
+
+.gallery-scroll::-webkit-scrollbar {
+  display: none;
 }
 
 .gallery-track {
-  display: flex;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 100%;
   width: 100%;
-  will-change: transform;
-  transform: translate3d(0, 0, 0);
-  backface-visibility: hidden;
+}
+
+.gallery-item {
+  width: 100%;
+  min-width: 100%;
+  height: 560px;
+  overflow: hidden;
+  background: #efe7de;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
 }
 
 .gallery-item img {
@@ -445,55 +463,8 @@ section + section {
   pointer-events: none;
 }
 
-.gallery-item {
-  width: 100%;
-  min-width: 100%;
-  height: 560px;
-  flex-shrink: 0;
-  overflow: hidden;
-  background: #efe7de;
-}
-
-
 .gallery-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  border: none;
-  background: rgba(44,44,44,0.38);
-  color: #fff;
-  font-size: 22px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 2;
-  backdrop-filter: blur(4px);
   display: none !important;
-}
-
-.gallery-arrow.prev {
-  left: 10px;
-}
-
-.gallery-arrow.next {
-  right: 10px;
-}
-
-.gallery-arrow:disabled {
-  opacity: .35;
-  cursor: default;
-}
-
-.gallery-indicator {
-  text-align: center;
-  margin-top: 12px;
-  font-size: 12px;
-  color: var(--text-mid);
-  letter-spacing: .5px;
 }
 
 .gallery-thumbs {
@@ -503,6 +474,7 @@ section + section {
   grid-auto-columns: calc((100% - 24px) / 5);
   gap: 6px;
   overflow-x: auto;
+  overflow-y: hidden;
   padding-bottom: 4px;
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -548,6 +520,14 @@ section + section {
   color: var(--text-light);
   margin-top: 10px;
   letter-spacing: 1px;
+}
+
+.gallery-indicator {
+  text-align: center;
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--text-mid);
+  letter-spacing: .5px;
 }
 
 /* CALENDAR */
