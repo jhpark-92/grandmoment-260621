@@ -17,6 +17,8 @@
   let deltaY = 0;
   let dragging = false;
   let horizontalGesture = false;
+  let rafId = null;
+  let pendingX = null;
 
   const thumbs = slides.map((slide, index) => {
     const img = slide.querySelector('img');
@@ -34,6 +36,11 @@
     return btn;
   });
 
+  function setTranslate(x, useTransition) {
+    track.style.transition = useTransition ? 'transform 0.28s ease-out' : 'none';
+    track.style.transform = `translate3d(${x}px, 0, 0)`;
+  }
+
   function updateThumbs() {
     thumbs.forEach((thumb, index) => {
       thumb.classList.toggle('active', index === current);
@@ -43,13 +50,13 @@
     active?.scrollIntoView({
       inline: 'center',
       block: 'nearest',
-      behavior: 'smooth'
+      behavior: 'auto'
     });
   }
 
   function syncTrack(useTransition = true) {
-    track.style.transition = useTransition ? 'transform 0.35s ease' : 'none';
-    track.style.transform = `translateX(-${current * 100}%)`;
+    const x = -(current * viewport.clientWidth);
+    setTranslate(x, useTransition);
 
     if (indicator) {
       indicator.textContent = `${current + 1} / ${slides.length}`;
@@ -75,6 +82,12 @@
     syncTrack(true);
   }
 
+  function renderDrag() {
+    rafId = null;
+    if (pendingX === null) return;
+    setTranslate(pendingX, false);
+  }
+
   viewport.addEventListener('touchstart', (e) => {
     const t = e.touches[0];
     startX = t.clientX;
@@ -83,6 +96,11 @@
     deltaY = 0;
     dragging = true;
     horizontalGesture = false;
+    pendingX = null;
+    if (rafId) {
+      cancelAnimationFrame(rafId);
+      rafId = null;
+    }
     syncTrack(false);
   }, { passive: true });
 
@@ -100,7 +118,7 @@
         return;
       }
 
-      if (Math.abs(deltaX) > 12) {
+      if (Math.abs(deltaX) > 10) {
         horizontalGesture = true;
       }
     }
@@ -114,23 +132,23 @@
 
     let effectiveDeltaX = deltaX;
 
-    if (atFirst && deltaX > 0) {
-      effectiveDeltaX = 0;
-    }
+    if (atFirst && deltaX > 0) effectiveDeltaX = deltaX * 0.18;
+    if (atLast && deltaX < 0) effectiveDeltaX = deltaX * 0.18;
 
-    if (atLast && deltaX < 0) {
-      effectiveDeltaX = 0;
-    }
+    const base = -(current * viewport.clientWidth);
+    pendingX = base + effectiveDeltaX;
 
-    const base = -current * viewport.clientWidth;
-    track.style.transform = `translateX(${base + effectiveDeltaX}px)`;
+    if (!rafId) {
+      rafId = requestAnimationFrame(renderDrag);
+    }
   }, { passive: false });
 
   viewport.addEventListener('touchend', () => {
     const atFirst = current === 0;
     const atLast = current === slides.length - 1;
+    const threshold = Math.min(90, viewport.clientWidth * 0.18);
 
-    if (Math.abs(deltaX) > 50) {
+    if (Math.abs(deltaX) > threshold) {
       if (deltaX < 0 && !atLast) {
         goToNext();
       } else if (deltaX > 0 && !atFirst) {
@@ -144,13 +162,19 @@
 
     dragging = false;
     horizontalGesture = false;
+    pendingX = null;
   });
 
   viewport.addEventListener('touchcancel', () => {
     dragging = false;
     horizontalGesture = false;
+    pendingX = null;
     syncTrack(true);
   });
 
-  syncTrack(true);
+  window.addEventListener('resize', () => {
+    syncTrack(false);
+  });
+
+  syncTrack(false);
 })();
