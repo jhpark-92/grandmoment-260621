@@ -19,6 +19,28 @@
   <link rel="stylesheet" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
   <link rel="stylesheet" href="css/main.css">
   <link rel="icon" href="./cover-1.png">
+  <link rel="preload" as="image" href="assets/hero-main.png" fetchpriority="high">
+  <link rel="preload" as="image" href="assets/gallery-01.png">
+  <link rel="preload" as="image" href="assets/gallery-02.png">
+  <link rel="preload" as="image" href="assets/gallery-03.png">
+  <link rel="preload" as="image" href="assets/gallery-04.png">
+  <link rel="preload" as="image" href="assets/gallery-05.png">
+  <link rel="preload" as="image" href="assets/gallery-06.png">
+  <link rel="preload" as="image" href="assets/gallery-07.png">
+  <link rel="preload" as="image" href="assets/gallery-08.png">
+  <link rel="preload" as="image" href="assets/gallery-09.png">
+  <link rel="preload" as="image" href="assets/gallery-10.png">
+  <link rel="preload" as="image" href="assets/gallery-11.png">
+  <link rel="preload" as="image" href="assets/gallery-12.png">
+  <link rel="preload" as="image" href="assets/gallery-13.png">
+  <link rel="preload" as="image" href="assets/gallery-14.png">
+  <link rel="preload" as="image" href="assets/gallery-15.png">
+  <link rel="preload" as="image" href="assets/gallery-16.png">
+  <link rel="preload" as="image" href="assets/gallery-17.png">
+  <link rel="preload" as="image" href="assets/gallery-18.png">
+  <link rel="preload" as="image" href="assets/gallery-19.png">
+  <link rel="preload" as="image" href="assets/gallery-20.png">
+  <link rel="preload" as="audio" href="bgm.mp3">
 </head>
 <body>
   <div class="opening-overlay" id="opening-overlay">
@@ -35,7 +57,7 @@
 	</div>
   </div>
 
-  <audio id="bgm" loop preload="auto">
+  <audio id="bgm" loop preload="auto" playsinline webkit-playsinline>
     <source src="bgm.mp3" type="audio/mpeg">
   </audio>
 
@@ -46,7 +68,13 @@
   <div class="card">
     <!-- HERO -->
     <section class="hero">
-      <img src="assets/hero-main.png" alt="박주현 문예진 웨딩 사진">
+      <img
+	    src="assets/hero-main.png"
+	    alt="박주현 문예진 웨딩 사진"
+	    loading="eager"
+	    fetchpriority="high"
+	    decoding="async"
+ 	  >
       <div class="hero-overlay"></div>
       <div class="hero-text">
         <div class="hero-names">박주현 <span>♥</span> 문예진</div>
