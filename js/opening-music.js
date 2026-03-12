@@ -7,6 +7,7 @@
   let interactionBound = false;
   let autoplayTried = false;
   let openingClosed = false;
+  let musicStartedByUser = false;
 
   if ('scrollRestoration' in history) {
     history.scrollRestoration = 'manual';
@@ -23,15 +24,17 @@
     toggle.textContent = audio.paused ? '🔇 음악 켜기' : '🎵 음악 끄기';
   }
 
-  async function tryPlayMusic() {
+  async function tryPlayMusic(markUserStarted = false) {
     if (!audio) return false;
     if (!audio.paused) {
+      if (markUserStarted) musicStartedByUser = true;
       syncMusicButton();
       return true;
     }
 
     try {
       await audio.play();
+      if (markUserStarted) musicStartedByUser = true;
       syncMusicButton();
       return true;
     } catch (e) {
@@ -48,7 +51,7 @@
   }
 
   async function handleFirstInteraction() {
-    const played = await tryPlayMusic();
+    const played = await tryPlayMusic(true);
     if (played) {
       removeFirstInteractionListeners();
     }
@@ -59,7 +62,6 @@
   function bindFirstInteractionAutoPlay() {
     if (interactionBound) return;
     interactionBound = true;
-
     window.addEventListener('touchstart', handleFirstInteraction, passiveOnce);
     window.addEventListener('pointerdown', handleFirstInteraction, passiveOnce);
     window.addEventListener('keydown', handleFirstInteraction, passiveOnce);
@@ -69,11 +71,7 @@
     if (autoplayTried) return;
     autoplayTried = true;
 
-    if (!audio) return;
-
-    audio.preload = 'auto';
-
-    const played = await tryPlayMusic();
+    const played = await tryPlayMusic(false);
     if (!played) {
       bindFirstInteractionAutoPlay();
     }
@@ -87,30 +85,30 @@
       opening.classList.add('hidden');
     }
     document.body.style.overflow = 'auto';
-    forceScrollTop();
   }
 
   document.body.style.overflow = 'hidden';
   forceScrollTop();
 
-  window.addEventListener('load', () => {
+  document.addEventListener('DOMContentLoaded', () => {
     forceScrollTop();
+    syncMusicButton();
     attemptImmediatePlay();
   });
 
-  window.addEventListener('pageshow', () => {
+  window.addEventListener('load', () => {
     forceScrollTop();
+    syncMusicButton();
   });
 
   if (openBtn) {
     openBtn.addEventListener('click', async () => {
       closeOpening();
 
-      if (audio && audio.paused) {
-        const played = await tryPlayMusic();
+      if (audio && audio.paused && !musicStartedByUser) {
+        const played = await tryPlayMusic(true);
         if (!played) {
           bindFirstInteractionAutoPlay();
-          showToast('브라우저 설정에 따라 첫 터치 후 음악이 시작될 수 있어요');
         }
       }
     });
@@ -121,9 +119,9 @@
       if (!audio) return;
 
       if (audio.paused) {
-        const played = await tryPlayMusic();
+        const played = await tryPlayMusic(true);
         if (!played) {
-          showToast('브라우저 설정에 따라 자동 재생이 제한될 수 있어요');
+          showToast('브라우저 설정에 따라 첫 터치 후 음악이 시작될 수 있어요');
         }
       } else {
         audio.pause();
@@ -133,6 +131,5 @@
   }
 
   document.addEventListener('visibilitychange', syncMusicButton);
-
   syncMusicButton();
 })();

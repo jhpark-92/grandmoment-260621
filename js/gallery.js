@@ -11,15 +11,9 @@
   if (!slides.length) return;
 
   let current = 0;
-  let startX = 0;
-  let startY = 0;
-  let deltaX = 0;
-  let deltaY = 0;
-  let dragging = false;
-  let horizontalGesture = false;
-  let rafId = null;
-  let pendingX = null;
-  let slideWidth = viewport.clientWidth;
+  let ticking = false;
+
+  thumbsRoot.innerHTML = '';
 
   const thumbs = slides.map((slide, index) => {
     const img = slide.querySelector('img');
@@ -29,127 +23,77 @@
     btn.setAttribute('aria-label', `${index + 1}번 사진 보기`);
     btn.innerHTML = `<img src="${img.getAttribute('src')}" alt="${img.getAttribute('alt') || `웨딩 사진 ${index + 1}`}">`;
 
-    btn.addEventListener('click', () => goTo(index));
+    btn.addEventListener('click', () => {
+      goTo(index, true);
+    });
+
     thumbsRoot.appendChild(btn);
     return btn;
   });
 
-  function setTranslate(x, useTransition) {
-    track.style.transition = useTransition ? 'transform 0.22s ease-out' : 'none';
-    track.style.transform = `translate3d(${x}px, 0, 0)`;
+  function getSlideWidth() {
+    return viewport.clientWidth || 1;
+  }
+
+  function updateIndicator() {
+    if (indicator) {
+      indicator.textContent = `${current + 1} / ${slides.length}`;
+    }
   }
 
   function updateThumbs() {
     thumbs.forEach((thumb, index) => {
       thumb.classList.toggle('active', index === current);
     });
+
+    const active = thumbs[current];
+    if (active) {
+      const left = active.offsetLeft - (thumbsRoot.clientWidth / 2) + (active.clientWidth / 2);
+      thumbsRoot.scrollTo({
+        left,
+        behavior: 'smooth'
+      });
+    }
   }
 
-  function syncTrack(useTransition = true) {
-    slideWidth = viewport.clientWidth;
-    const x = -(current * slideWidth);
-    setTranslate(x, useTransition);
+  function syncFromScroll() {
+    ticking = false;
+    const width = getSlideWidth();
+    const next = Math.round(viewport.scrollLeft / width);
 
-    if (indicator) {
-      indicator.textContent = `${current + 1} / ${slides.length}`;
+    if (next !== current) {
+      current = Math.max(0, Math.min(slides.length - 1, next));
+      updateIndicator();
+      updateThumbs();
     }
+  }
 
+  function requestSync() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(syncFromScroll);
+  }
+
+  function goTo(index, smooth = true) {
+    current = Math.max(0, Math.min(slides.length - 1, index));
+    const left = current * getSlideWidth();
+
+    viewport.scrollTo({
+      left,
+      behavior: smooth ? 'smooth' : 'auto'
+    });
+
+    updateIndicator();
     updateThumbs();
   }
 
-  function goTo(index) {
-    current = Math.max(0, Math.min(slides.length - 1, index));
-    syncTrack(true);
-  }
-
-  function renderDrag() {
-    rafId = null;
-    if (pendingX === null) return;
-    setTranslate(pendingX, false);
-  }
-
-  viewport.addEventListener('touchstart', (e) => {
-    const t = e.touches[0];
-    startX = t.clientX;
-    startY = t.clientY;
-    deltaX = 0;
-    deltaY = 0;
-    dragging = true;
-    horizontalGesture = false;
-    pendingX = null;
-
-    if (rafId) {
-      cancelAnimationFrame(rafId);
-      rafId = null;
-    }
-
-    slideWidth = viewport.clientWidth;
-    setTranslate(-(current * slideWidth), false);
-  }, { passive: true });
-
-  viewport.addEventListener('touchmove', (e) => {
-    if (!dragging) return;
-
-    const t = e.touches[0];
-    deltaX = t.clientX - startX;
-    deltaY = t.clientY - startY;
-
-    if (!horizontalGesture) {
-      if (Math.abs(deltaY) > Math.abs(deltaX)) {
-        dragging = false;
-        syncTrack(true);
-        return;
-      }
-
-      if (Math.abs(deltaX) > 10) {
-        horizontalGesture = true;
-      }
-    }
-
-    if (!horizontalGesture) return;
-
-    e.preventDefault();
-
-    const atFirst = current === 0;
-    const atLast = current === slides.length - 1;
-
-    let effectiveDeltaX = deltaX;
-    if (atFirst && deltaX > 0) effectiveDeltaX = deltaX * 0.15;
-    if (atLast && deltaX < 0) effectiveDeltaX = deltaX * 0.15;
-
-    pendingX = -(current * slideWidth) + effectiveDeltaX;
-
-    if (!rafId) {
-      rafId = requestAnimationFrame(renderDrag);
-    }
-  }, { passive: false });
-
-  viewport.addEventListener('touchend', () => {
-    const atFirst = current === 0;
-    const atLast = current === slides.length - 1;
-    const threshold = Math.min(70, slideWidth * 0.15);
-
-    if (Math.abs(deltaX) > threshold) {
-      if (deltaX < 0 && !atLast) current += 1;
-      else if (deltaX > 0 && !atFirst) current -= 1;
-    }
-
-    dragging = false;
-    horizontalGesture = false;
-    pendingX = null;
-    syncTrack(true);
-  });
-
-  viewport.addEventListener('touchcancel', () => {
-    dragging = false;
-    horizontalGesture = false;
-    pendingX = null;
-    syncTrack(true);
-  });
+  viewport.addEventListener('scroll', requestSync, { passive: true });
 
   window.addEventListener('resize', () => {
-    syncTrack(false);
+    goTo(current, false);
   });
 
-  syncTrack(false);
+  updateIndicator();
+  updateThumbs();
+  goTo(0, false);
 })();
