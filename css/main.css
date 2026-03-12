@@ -488,51 +488,12 @@ section + section {
   cursor: default;
 }
 
-.gallery-hint {
-  text-align: center;
-  font-size: 11px;
-  color: var(--text-light);
-  margin-top: 8px;
-  letter-spacing: 1px;
-}
-
 .gallery-indicator {
   text-align: center;
   margin-top: 12px;
   font-size: 12px;
   color: var(--text-mid);
   letter-spacing: .5px;
-}
-
-.gallery-scroll {
-  overflow: hidden;
-  border-radius: 18px;
-  background: #ede7db;
-  box-shadow: var(--shadow);
-  touch-action: pan-y pinch-zoom;
-}
-
-.gallery-track {
-  display: flex;
-  width: 100%;
-  transition: transform .35s ease;
-  will-change: transform;
-}
-
-.gallery-item {
-  width: 100%;
-  min-width: 100%;
-  height: 560px;
-  flex-shrink: 0;
-  overflow: hidden;
-  background: #efe7de;
-}
-
-.gallery-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  background: #efe7de;
 }
 
 .gallery-thumbs {
@@ -1105,37 +1066,9 @@ section + section {
 
 /* MOBILE */
 @media (max-width: 380px) {
-  section {
-    padding: 44px 20px;
-  }
-
-  .hero-names {
-    font-size: 22px;
-    letter-spacing: 4px;
-  }
-
   .gallery-item {
     height: 500px;
   }
-
-  .dday-number {
-    font-size: 60px;
-  }
-
-  .contacts-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-	.opening-title {
-	  font-size: 27px;
-	}
-
-	.opening-title .opening-and {
-	  font-size: 27px;
-	}
-
-	.opening-title .opening-married {
-	  font-size: 27px;
-	}
 }
 
 .opening-title {
