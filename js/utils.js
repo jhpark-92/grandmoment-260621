@@ -19,8 +19,12 @@ function fallbackCopyText(text) {
   document.body.removeChild(ta);
 }
 
-function copyAccount(num, btn) {
-  navigator.clipboard.writeText(num).then(() => {
+function copyAccount(text, btn) {
+  const accountText =
+    btn?.closest('.account-card')?.querySelector('.account-num')?.textContent?.replace(/\s+/g, ' ').trim()
+    || text;
+
+  navigator.clipboard.writeText(accountText).then(() => {
     if (btn) {
       btn.textContent = '복사됨';
       btn.classList.add('copied');
@@ -31,10 +35,10 @@ function copyAccount(num, btn) {
       }, 2000);
     }
 
-    showToast('계좌번호가 복사되었습니다');
+    showToast('은행명과 계좌번호가 복사되었습니다');
   }).catch(() => {
-    fallbackCopyText(num);
-    showToast('계좌번호가 복사되었습니다');
+    fallbackCopyText(accountText);
+    showToast('은행명과 계좌번호가 복사되었습니다');
   });
 }
 

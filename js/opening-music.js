@@ -4,25 +4,53 @@
   const opening = document.getElementById('opening-overlay');
   const openBtn = document.getElementById('opening-enter');
 
-  let audioReady = false;
+  let autoPlaySucceeded = false;
+  let interactionBound = false;
 
   function syncMusicButton() {
     if (!toggle || !audio) return;
-    const playing = !audio.paused;
-    toggle.textContent = playing ? '🎵 음악 끄기' : '🔇 음악 켜기';
+    toggle.textContent = audio.paused ? '🔇 음악 켜기' : '🎵 음악 끄기';
   }
 
-  async function playMusic() {
-    if (!audio) return;
+  async function tryPlayMusic() {
+    if (!audio) return false;
 
     try {
       await audio.play();
-      audioReady = true;
+      autoPlaySucceeded = true;
+      syncMusicButton();
+      return true;
     } catch (e) {
-      audioReady = false;
+      syncMusicButton();
+      return false;
     }
+  }
 
-    syncMusicButton();
+  function removeFirstInteractionListeners() {
+    window.removeEventListener('touchstart', handleFirstInteraction, passiveOnce);
+    window.removeEventListener('pointerdown', handleFirstInteraction, passiveOnce);
+    window.removeEventListener('keydown', handleFirstInteraction, passiveOnce);
+    window.removeEventListener('scroll', handleFirstInteraction, passiveOnce);
+    interactionBound = false;
+  }
+
+  async function handleFirstInteraction() {
+    const played = await tryPlayMusic();
+    if (played) {
+      removeFirstInteractionListeners();
+    }
+  }
+
+  const passiveOnce = { passive: true, once: true };
+
+  function bindFirstInteractionAutoPlay() {
+    if (interactionBound) return;
+    interactionBound = true;
+
+    window.addEventListener('touchstart', handleFirstInteraction, passiveOnce);
+    window.addEventListener('pointerdown', handleFirstInteraction, passiveOnce);
+    window.addEventListener('keydown', handleFirstInteraction, passiveOnce);
+    window.addEventListener('scroll', handleFirstInteraction, passiveOnce);
   }
 
   function closeOpening() {
@@ -32,15 +60,36 @@
     document.body.style.overflow = 'auto';
   }
 
+  function preloadAudio() {
+    if (!audio) return;
+    audio.preload = 'auto';
+    audio.load();
+  }
+
+  async function attemptImmediatePlay() {
+    preloadAudio();
+    const played = await tryPlayMusic();
+    if (!played) {
+      bindFirstInteractionAutoPlay();
+    }
+  }
+
   document.body.style.overflow = 'hidden';
+
+  window.addEventListener('load', () => {
+    attemptImmediatePlay();
+  });
 
   if (openBtn) {
     openBtn.addEventListener('click', async () => {
       closeOpening();
-      await playMusic();
 
-      if (!audioReady) {
-        showToast('음악 재생은 화면을 한 번 더 터치하면 시작될 수 있어요');
+      if (audio.paused) {
+        const played = await tryPlayMusic();
+        if (!played) {
+          bindFirstInteractionAutoPlay();
+          showToast('브라우저 설정에 따라 첫 터치 후 음악이 시작될 수 있어요');
+        }
       }
     });
   }
@@ -50,9 +99,8 @@
       if (!audio) return;
 
       if (audio.paused) {
-        await playMusic();
-
-        if (!audioReady) {
+        const played = await tryPlayMusic();
+        if (!played) {
           showToast('브라우저 설정에 따라 자동 재생이 제한될 수 있어요');
         }
       } else {
@@ -62,6 +110,9 @@
     });
   }
 
-  document.addEventListener('visibilitychange', syncMusicButton);
+  document.addEventListener('visibilitychange', () => {
+    syncMusicButton();
+  });
+
   syncMusicButton();
 })();
