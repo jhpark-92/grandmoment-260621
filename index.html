@@ -43,6 +43,10 @@
   <link rel="preload" as="audio" href="bgm.mp3">
 </head>
 <body>
+  <audio id="bgm" loop preload="auto" playsinline webkit-playsinline>
+    <source src="bgm.mp3" type="audio/mpeg">
+  </audio>
+  
   <div class="opening-overlay" id="opening-overlay">
 	<div class="opening-inner">
 	  <div class="opening-kicker">Wedding Invitation</div>
@@ -57,9 +61,7 @@
 	</div>
   </div>
 
-  <audio id="bgm" loop preload="auto" playsinline webkit-playsinline>
-    <source src="bgm.mp3" type="audio/mpeg">
-  </audio>
+  
 
   <button class="music-toggle" id="music-toggle" type="button" aria-label="배경음악 재생 또는 정지">
     🔇 음악 켜기
@@ -237,43 +239,41 @@
 
     <!-- GALLERY -->
     <section class="gallery-section fade-in">
-      <div class="section-label">Gallery</div>
-      <div class="section-title">사진첩</div>
+	  <div class="section-label">Gallery</div>
+	  <div class="section-title">사진첩</div>
 
-      <div class="gallery-slider">
-        <button class="gallery-arrow prev" type="button" aria-label="이전 사진">‹</button>
+	  <div class="gallery-slider">
+		<div class="gallery-scroll">
+		  <div class="gallery-track">
+			<div class="gallery-item"><img src="assets/gallery-01.png" alt="웨딩 사진 1" loading="eager"></div>
+			<div class="gallery-item"><img src="assets/gallery-02.png" alt="웨딩 사진 2" loading="lazy"></div>
+			<div class="gallery-item"><img src="assets/gallery-03.png" alt="웨딩 사진 3" loading="lazy"></div>
+			<div class="gallery-item"><img src="assets/gallery-04.png" alt="웨딩 사진 4" loading="lazy"></div>
+			<div class="gallery-item"><img src="assets/gallery-05.png" alt="웨딩 사진 5" loading="lazy"></div>
+			<div class="gallery-item"><img src="assets/gallery-06.jpg" alt="웨딩 사진 6" loading="lazy"></div>
+			<div class="gallery-item"><img src="assets/gallery-07.png" alt="웨딩 사진 7" loading="lazy"></div>
+			<div class="gallery-item"><img src="assets/gallery-08.png" alt="웨딩 사진 8" loading="lazy"></div>
+			<div class="gallery-item"><img src="assets/gallery-09.png" alt="웨딩 사진 9" loading="lazy"></div>
+			<div class="gallery-item"><img src="assets/gallery-10.png" alt="웨딩 사진 10" loading="lazy"></div>
+			<div class="gallery-item"><img src="assets/gallery-11.png" alt="웨딩 사진 11" loading="lazy"></div>
+			<div class="gallery-item"><img src="assets/gallery-12.png" alt="웨딩 사진 12" loading="lazy"></div>
+			<div class="gallery-item"><img src="assets/gallery-13.png" alt="웨딩 사진 13" loading="lazy"></div>
+			<div class="gallery-item"><img src="assets/gallery-14.png" alt="웨딩 사진 14" loading="lazy"></div>
+			<div class="gallery-item"><img src="assets/gallery-15.png" alt="웨딩 사진 15" loading="lazy"></div>
+			<div class="gallery-item"><img src="assets/gallery-16.png" alt="웨딩 사진 16" loading="lazy"></div>
+			<div class="gallery-item"><img src="assets/gallery-17.png" alt="웨딩 사진 17" loading="lazy"></div>
+			<div class="gallery-item"><img src="assets/gallery-18.png" alt="웨딩 사진 18" loading="lazy"></div>
+			<div class="gallery-item"><img src="assets/gallery-19.png" alt="웨딩 사진 19" loading="lazy"></div>
+			<div class="gallery-item"><img src="assets/gallery-20.png" alt="웨딩 사진 20" loading="lazy"></div>
+		  </div>
+		</div>
+	  </div>
 
-        <div class="gallery-scroll">
-          <div class="gallery-track">
-            <div class="gallery-item"><img src="assets/gallery-01.png" alt="웨딩 사진 1"></div>
-            <div class="gallery-item"><img src="assets/gallery-02.png" alt="웨딩 사진 2"></div>
-            <div class="gallery-item"><img src="assets/gallery-03.png" alt="웨딩 사진 3"></div>
-            <div class="gallery-item"><img src="assets/gallery-04.png" alt="웨딩 사진 4"></div>
-            <div class="gallery-item"><img src="assets/gallery-05.png" alt="웨딩 사진 5"></div>
-            <div class="gallery-item"><img src="assets/gallery-06.jpg" alt="웨딩 사진 6"></div>
-            <div class="gallery-item"><img src="assets/gallery-07.png" alt="웨딩 사진 7"></div>
-            <div class="gallery-item"><img src="assets/gallery-08.png" alt="웨딩 사진 8"></div>
-            <div class="gallery-item"><img src="assets/gallery-09.png" alt="웨딩 사진 9"></div>
-            <div class="gallery-item"><img src="assets/gallery-10.png" alt="웨딩 사진 10"></div>
-			<div class="gallery-item"><img src="assets/gallery-11.png" alt="웨딩 사진 11"></div>
-            <div class="gallery-item"><img src="assets/gallery-12.png" alt="웨딩 사진 12"></div>
-			<div class="gallery-item"><img src="assets/gallery-13.png" alt="웨딩 사진 13"></div>
-			<div class="gallery-item"><img src="assets/gallery-14.png" alt="웨딩 사진 14"></div>
-			<div class="gallery-item"><img src="assets/gallery-15.png" alt="웨딩 사진 15"></div>
-			<div class="gallery-item"><img src="assets/gallery-16.png" alt="웨딩 사진 16"></div>
-			<div class="gallery-item"><img src="assets/gallery-17.png" alt="웨딩 사진 17"></div>
-			<div class="gallery-item"><img src="assets/gallery-18.png" alt="웨딩 사진 18"></div>
-			<div class="gallery-item"><img src="assets/gallery-19.png" alt="웨딩 사진 19"></div>
-			<div class="gallery-item"><img src="assets/gallery-20.png" alt="웨딩 사진 20"></div>
-          </div>
-        </div>
+	  <div class="gallery-thumbs" id="gallery-thumbs"></div>
 
-        <button class="gallery-arrow next" type="button" aria-label="다음 사진">›</button>
-      </div>
-
-      <p class="gallery-hint">화살표 버튼으로 사진을 넘겨보세요</p>
-      <div class="gallery-indicator" id="gallery-indicator">1 / 1</div>
-    </section>
+	  <p class="gallery-hint">좌우로 넘기거나 아래 미리보기를 눌러보세요</p>
+	  <div class="gallery-indicator" id="gallery-indicator">1 / 1</div>
+	</section>
 	
 	<!-- MAP -->
     <section class="map-section fade-in">
