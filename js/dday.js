@@ -1,8 +1,13 @@
 (function initDday() {
   const wedding = new Date(window.APP_CONFIG.weddingDate);
-  const today = new Date();
 
-  const diff = Math.ceil((wedding - today) / (1000 * 60 * 60 * 24));
+  // 현재 시간을 한국 시간(KST) 기준으로 고정
+  const now = new Date();
+  const kstNow = new Date(
+    now.toLocaleString('en-US', { timeZone: 'Asia/Seoul' })
+  );
+
+  const diff = Math.ceil((wedding - kstNow) / (1000 * 60 * 60 * 24));
   const countEl = document.getElementById('dday-count');
   const barEl = document.getElementById('dday-bar');
 
