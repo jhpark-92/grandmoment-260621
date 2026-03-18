@@ -1092,25 +1092,49 @@ section + section {
 }
 
 .opening-enter {
-  margin-top: 30px;
+  margin-top: 34px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 12px 22px;
+  min-width: 140px;
+  height: 50px;
+  padding: 0 30px;
   border-radius: 999px;
-  background: var(--text-dark);
-  color: white;
-  border: none;
-  font-family: 'Pretendard', sans-serif;
-  font-size: 12px;
-  letter-spacing: 1px;
+
+  border: 1px solid rgba(232, 201, 201, 0.95);
+  background: rgba(255, 248, 248, 0.82);
+
+  color: rgba(58, 45, 45, 0.92);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+
+  /* "우리 결혼합니다"와 같은 폰트로 맞추기 */
+  font-family: 'MaruBuri', serif;
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+
   cursor: pointer;
   opacity: 0;
   transform: translateY(16px);
   animation: openingText 0.9s ease forwards;
   animation-delay: 2.6s;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
 
+.opening-enter:hover {
+  background: rgba(255, 248, 248, 0.92);
+  border-color: rgba(224, 190, 190, 1);
+  transform: translateY(-1px);
+}
+
+.opening-enter:active {
+  transform: translateY(0);
+}
+
+.opening-enter:focus-visible {
+  outline: none;
+  border-color: rgba(214, 178, 178, 1);
+}
 
 .gallery-track,
 .gallery-item img,
