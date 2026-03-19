@@ -1084,11 +1084,12 @@ section + section {
 }
 
 .opening-title .line-4 {
+  margin-top:15px;
   animation-delay: 2.0s;
 }
 
 .opening-title .opening-subtitle {
-  font-size: 0.7em; /* 기존보다 작게 */
+  font-size: 13px; /* 기존보다 작게 */
 }
 
 .opening-enter {
@@ -1104,7 +1105,7 @@ section + section {
   border-radius: 20px;
   padding: 9px 18px;
   text-decoration: none;
-  border: 1px solid #f2a3a3; /* WEDDING INVITATION 색상 계열 */
+  border: 3.79px solid #f3c3c2; /* WEDDING INVITATION 색상 계열 */
   font-family: 'Pretendard', sans-serif;
   cursor: pointer;
   opacity: 0;
@@ -1116,7 +1117,8 @@ section + section {
 
 .opening-enter:hover {
   background: var(--pink-light);
-  border-color: #ee9696;
+  border-color: #f3c3c2;
+  border: 3.79px solid;
 }
 
 .gallery-track,
