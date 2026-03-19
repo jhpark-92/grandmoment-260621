@@ -408,18 +408,19 @@ section + section {
 }
 
 .contact-btn-icon {
+  width: 14px;
+  height: 14px;
+  flex: 0 0 14px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 12px;
-  height: 12px;
 }
 
 .phone-icon {
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
   display: block;
-  fill: #f08f95; /* 원하는 핑크색 */
+  fill: #f08f95;
 }
 
 .contact-btn-text {
@@ -769,14 +770,18 @@ section + section {
 }
 
 .venue-phone .contact-btn-icon {
-  width: 11px;
-  height: 11px;
-  flex: 0 0 11px;
+  width: 12px;
+  height: 12px;
+  flex: 0 0 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(-0.5px);
 }
 
 .venue-phone .phone-icon {
-  width: 11px;
-  height: 11px;
+  width: 12px;
+  height: 12px;
   display: block;
   fill: #f08f95;
 }
