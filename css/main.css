@@ -760,8 +760,25 @@ section + section {
 }
 
 .venue-phone {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
   color: var(--pink);
   font-size: 11px;
+  line-height: 1;
+}
+
+.venue-phone .contact-btn-icon {
+  width: 11px;
+  height: 11px;
+  flex: 0 0 11px;
+}
+
+.venue-phone .phone-icon {
+  width: 11px;
+  height: 11px;
+  display: block;
+  fill: #f08f95;
 }
 
 .venue-tag {
