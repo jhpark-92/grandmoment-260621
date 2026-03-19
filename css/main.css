@@ -744,12 +744,33 @@ section + section {
 }
 
 .venue-tag {
-  display: inline-block;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: 0 16px 0 36px;
+  border-radius: 999px;
   background: var(--pink-pale);
   color: var(--pink);
-  font-size: 11px;
-  padding: 4px 10px;
-  border-radius: 20px;
+  box-sizing: border-box;
+  white-space: nowrap;
+}
+
+.venue-tag-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  line-height: 1;
+  font-size: 16px;
+}
+
+.venue-tag-text {
+  display: block;
+  text-align: center;
+  font-size: 14px;
+  line-height: 1;
 }
 
 .map-link-row {
