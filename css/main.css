@@ -748,8 +748,8 @@ section + section {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 40px;
-  padding: 0 16px 0 36px;
+  height: 28px;
+  padding: 0 11px 0 25px;
   border-radius: 999px;
   background: var(--pink-pale);
   color: var(--pink);
@@ -759,17 +759,17 @@ section + section {
 
 .venue-tag-icon {
   position: absolute;
-  left: 14px;
+  left: 10px;
   top: 50%;
   transform: translateY(-50%);
   line-height: 1;
-  font-size: 16px;
+  font-size: 11px;
 }
 
 .venue-tag-text {
   display: block;
   text-align: center;
-  font-size: 14px;
+  font-size: 10px;
   line-height: 1;
 }
 
