@@ -395,6 +395,7 @@ section + section {
 .contact-btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 4px;
   font-size: 11px;
   color: var(--text-mid);
@@ -402,7 +403,17 @@ section + section {
   border-radius: 20px;
   padding: 6px 12px;
   text-decoration: none;
-  transition: background 0.2s;
+  border: none;
+  font-family: 'Pretendard', sans-serif;
+}
+
+.contact-btn-icon {
+  font-size: 12px;
+  line-height: 1;
+}
+
+.contact-btn-text {
+  line-height: 1;
 }
 
 .contact-btn:hover {
@@ -1140,6 +1151,17 @@ section + section {
   background: var(--pink-light);
   border-color: #f3c3c2;
   border: 3.79px solid;
+}
+
+.opening-enter-icon {
+  font-size: 14px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+}
+
+.opening-enter-text {
+  line-height: 1;
 }
 
 .gallery-track,
