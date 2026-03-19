@@ -408,8 +408,18 @@ section + section {
 }
 
 .contact-btn-icon {
-  font-size: 12px;
-  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 12px;
+  height: 12px;
+}
+
+.phone-icon {
+  width: 12px;
+  height: 12px;
+  display: block;
+  fill: #f08f95; /* 원하는 핑크색 */
 }
 
 .contact-btn-text {
