@@ -33,9 +33,9 @@
     btn.setAttribute('aria-label', `${index + 1}번 사진 보기`);
     btn.innerHTML = `<img src="${img.getAttribute('src')}" alt="${img.getAttribute('alt') || `웨딩 사진 ${index + 1}`}">`;
 
-    btn.addEventListener('click', () => {
-      goTo(index, true);
-    });
+	btn.addEventListener('click', () => {
+	  goTo(index, true, false);
+	});
 
     thumbsRoot.appendChild(btn);
     return btn;
@@ -67,27 +67,37 @@
     }
   }
 
-  function updateThumbs(immediate = false) {
-    thumbs.forEach((thumb, index) => {
-      thumb.classList.toggle('active', index === current);
-    });
+	function updateThumbs(immediate = false) {
+	  thumbs.forEach((thumb, index) => {
+		thumb.classList.toggle('active', index === current);
+	  });
 
-    const active = thumbs[current];
-    if (!active) return;
+	  const active = thumbs[current];
+	  if (!active) return;
 
-    const left = Math.max(0, active.offsetLeft - (thumbsRoot.clientWidth / 2) + (active.clientWidth / 2));
+	  const rootRect = thumbsRoot.getBoundingClientRect();
+	  const activeRect = active.getBoundingClientRect();
 
-    if (thumbScrollRaf) cancelAnimationFrame(thumbScrollRaf);
+	  const targetLeft =
+		thumbsRoot.scrollLeft +
+		(activeRect.left - rootRect.left) -
+		(thumbsRoot.clientWidth / 2) +
+		(active.clientWidth / 2);
 
-    if (immediate) {
-      thumbsRoot.scrollLeft = left;
-      return;
-    }
+	  const maxScrollLeft = thumbsRoot.scrollWidth - thumbsRoot.clientWidth;
+	  const left = Math.max(0, Math.min(targetLeft, maxScrollLeft));
 
-    thumbScrollRaf = requestAnimationFrame(() => {
-      thumbsRoot.scrollTo({ left, behavior: 'auto' });
-    });
-  }
+	  if (thumbScrollRaf) cancelAnimationFrame(thumbScrollRaf);
+
+	  if (immediate) {
+		thumbsRoot.scrollLeft = left;
+		return;
+	  }
+
+	  thumbScrollRaf = requestAnimationFrame(() => {
+		thumbsRoot.scrollTo({ left, behavior: 'smooth' });
+	  });
+	}
 
   function preloadAround(index) {
     [index - 1, index, index + 1].forEach((i) => {
