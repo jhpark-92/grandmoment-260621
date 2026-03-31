@@ -358,7 +358,8 @@ section + section {
 }
 
 .name-parents {
-  font-size: 12px;
+  font-size: 14px;
+  font-weight: 700;
   color: var(--text-light);
   line-height: 1.8;
 }
@@ -368,6 +369,32 @@ section + section {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
+}
+
+.contact-column {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.contact-column-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 2px 0 2px;
+  font-family: 'Pretendard', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--pink);
+  letter-spacing: 1.5px;
+}
+
+.contact-column-title::before,
+.contact-column-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
 }
 
 .contact-card {
@@ -792,7 +819,7 @@ section + section {
   align-items: center;
   justify-content: center;
   height: 28px;
-  padding: 0 11px 0 25px;
+  padding: 0 11px 0 30px;
   border-radius: 999px;
   background: var(--pink-pale);
   color: var(--pink);
@@ -802,17 +829,17 @@ section + section {
 
 .venue-tag-icon {
   position: absolute;
-  left: 10px;
+  left: 3px;
   top: 50%;
   transform: translateY(-50%);
   line-height: 1;
-  font-size: 11px;
+  font-size: 17px;
 }
 
 .venue-tag-text {
   display: block;
   text-align: center;
-  font-size: 10px;
+  font-size: 14px;
   line-height: 1;
 }
 
@@ -1109,6 +1136,14 @@ section + section {
 @media (max-width: 380px) {
   .gallery-item {
     height: 500px;
+  }
+
+  .contacts-grid {
+    gap: 8px;
+  }
+
+  .contact-column {
+    gap: 8px;
   }
 }
 
