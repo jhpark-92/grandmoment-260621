@@ -790,7 +790,7 @@ section + section {
 }
 
 .venue-row-address {
-  font-size: 17px;
+  font-size: 14px;
   color: var(--text-mid);
 }
 
@@ -811,7 +811,7 @@ section + section {
 }
 
 .venue-row-text {
-  font-size: 17px;
+  font-size: 14px;
   font-weight: 700;
   color: var(--pink);
   line-height: 1.2;
@@ -988,7 +988,7 @@ section + section {
 }
 
 .account-who {
-  font-size: 14px;
+  font-size: 12px;
   color: var(--pink);
   letter-spacing: 1px;
   margin-bottom: 3px;
@@ -996,7 +996,7 @@ section + section {
 }
 
 .account-num {
-  font-size: 14px;
+  font-size: 12px;
   color: var(--text-mid);
   letter-spacing: 0.5px;
   font-family: 'Pretendard', sans-serif;
