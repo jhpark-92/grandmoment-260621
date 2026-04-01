@@ -382,8 +382,7 @@ section + section {
   align-items: center;
   gap: 10px;
   margin: 2px 0 2px;
-  font-family: 'Pretendard', sans-serif;
-  font-size: 11px;
+  font-size: 15px;
   font-weight: 700;
   color: var(--pink);
   letter-spacing: 1.5px;
@@ -406,7 +405,7 @@ section + section {
 }
 
 .contact-role {
-  font-size: 10px;
+  font-size: 14px;
   letter-spacing: 2px;
   color: var(--pink);
   text-transform: uppercase;
@@ -414,7 +413,7 @@ section + section {
 }
 
 .contact-name {
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 700;
   margin-bottom: 10px;
 }
@@ -770,76 +769,48 @@ section + section {
   background: white;
   border: 1px solid var(--border);
   border-radius: 12px;
-  padding: 20px;
+  padding: 14px 20px;
   text-align: left;
 }
 
-.venue-name {
+.venue-row {
+  display: flex;
+  align-items: center;
+  min-height: 32px;
+  margin: 0;
+}
+
+.venue-row + .venue-row {
+  margin-top: 2px;
+}
+
+.venue-row-title {
   font-size: 17px;
   font-weight: 700;
-  margin-bottom: 6px;
+  color: var(--text-dark);
 }
 
-.venue-addr {
-  font-size: 12.5px;
-  color: var(--text-mid);
-  line-height: 1.7;
-  margin-bottom: 14px;
-}
-
-.venue-phone {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  color: var(--pink);
-  font-size: 11px;
-  line-height: 1;
-}
-
-.venue-phone .contact-btn-icon {
-  width: 12px;
-  height: 12px;
-  flex: 0 0 12px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transform: translateY(-0.5px);
-}
-
-.venue-phone .phone-icon {
-  width: 12px;
-  height: 12px;
-  display: block;
-  fill: #f08f95;
-}
-
-.venue-tag {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: 28px;
-  padding: 0 11px 0 30px;
-  border-radius: 999px;
-  background: var(--pink-pale);
-  color: var(--pink);
-  box-sizing: border-box;
-  white-space: nowrap;
-}
-
-.venue-tag-icon {
-  position: absolute;
-  left: 3px;
-  top: 50%;
-  transform: translateY(-50%);
-  line-height: 1;
+.venue-row-address {
   font-size: 17px;
+  color: var(--text-mid);
 }
 
-.venue-tag-text {
-  display: block;
-  text-align: center;
-  font-size: 14px;
+.venue-row-parking {
+  color: var(--pink);
+  gap: 6px;
+}
+
+.venue-row-icon {
+  font-size: 15px;
+  line-height: 1;
+  flex: 0 0 auto;
+  transform: translateY(1px);
+}
+
+.venue-row-text {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--pink);
   line-height: 1;
 }
 
@@ -984,8 +955,7 @@ section + section {
   align-items: center;
   gap: 10px;
   margin: 20px 0 12px;
-  font-family: 'Pretendard', sans-serif;
-  font-size: 11px;
+  font-size: 15px;
   font-weight: 700;
   color: var(--pink);
   letter-spacing: 1.5px;
@@ -1015,14 +985,15 @@ section + section {
 }
 
 .account-who {
-  font-size: 11px;
+  font-size: 14px;
   color: var(--pink);
   letter-spacing: 1px;
   margin-bottom: 3px;
+  font-weight: 700;
 }
 
 .account-num {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--text-mid);
   letter-spacing: 0.5px;
   font-family: 'Pretendard', sans-serif;
@@ -1204,20 +1175,28 @@ section + section {
   border-radius: 20px;
   padding: 9px 18px;
   text-decoration: none;
-  border: 3.79px solid #f3c3c2; /* WEDDING INVITATION 색상 계열 */
+  border: 3.79px solid #f3c3c2;
   font-family: 'Pretendard', sans-serif;
   cursor: pointer;
   opacity: 0;
   transform: translateY(16px);
   animation: openingText 0.9s ease forwards;
   animation-delay: 2.6s;
-  transition: background 0.2s, border-color 0.2s;
+  transition: none;
+  -webkit-tap-highlight-color: transparent;
+  appearance: none;
+  -webkit-appearance: none;
 }
 
-.opening-enter:hover {
-  background: var(--pink-light);
+.opening-enter:hover,
+.opening-enter:active,
+.opening-enter:focus,
+.opening-enter:focus-visible {
+  background: var(--pink-pale);
   border-color: #f3c3c2;
-  border: 3.79px solid;
+  color: var(--text-mid);
+  outline: none;
+  box-shadow: none;
 }
 
 .opening-enter-icon {
