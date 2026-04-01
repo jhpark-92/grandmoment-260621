@@ -21,7 +21,7 @@
 
   function syncMusicButton() {
     if (!toggle || !audio) return;
-    toggle.textContent = audio.paused ? '🔇 음악 켜기' : '🎵 음악 끄기';
+    toggle.textContent = audio.paused ? '🔇 ON' : '🎵 OFF';
   }
 
   async function tryPlayMusic(markUserStarted = false) {
