@@ -405,7 +405,7 @@ section + section {
 
 .contact-role {
   font-size: 11px;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   color: var(--pink);
   text-transform: uppercase;
   margin-bottom: 6px;
