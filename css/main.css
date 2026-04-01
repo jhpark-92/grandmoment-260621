@@ -357,7 +357,7 @@ section + section {
 }
 
 .name-parents {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
   color: var(--text-light);
   line-height: 1.8;
@@ -404,7 +404,7 @@ section + section {
 }
 
 .contact-role {
-  font-size: 14px;
+  font-size: 11px;
   letter-spacing: 2px;
   color: var(--pink);
   text-transform: uppercase;
@@ -797,20 +797,24 @@ section + section {
 .venue-row-parking {
   color: var(--pink);
   gap: 6px;
+  align-items: center;
 }
 
 .venue-row-icon {
   font-size: 15px;
   line-height: 1;
   flex: 0 0 auto;
-  transform: translateY(1px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(-1.5px);
 }
 
 .venue-row-text {
   font-size: 17px;
   font-weight: 700;
   color: var(--pink);
-  line-height: 1;
+  line-height: 1.2;
 }
 
 .map-link-row {
