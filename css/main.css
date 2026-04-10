@@ -342,25 +342,46 @@ section + section {
   border-right: 1px solid var(--border);
 }
 
-.name-role {
-  font-size: 11px;
-  letter-spacing: 2px;
-  color: var(--pink);
-  margin-bottom: 4px;
-  font-style: italic;
+.family-lines {
+  width: fit-content;
+  margin: 30px auto 0;
+  position: relative;
+  left: -20px;
 }
 
-.name-main {
-  font-size: 22px;
-  font-weight: 700;
-  margin-bottom: 6px;
+.family-line {
+  display: grid;
+  grid-template-columns: 9.6em 4.4em 3.6em;
+  align-items: baseline;
+  white-space: nowrap;
 }
 
-.name-parents {
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--text-light);
-  line-height: 1.8;
+.family-line + .family-line {
+  margin-top: 18px;
+}
+
+.family-parents {
+  text-align: right;
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--text-dark);
+  letter-spacing: 0;
+}
+
+.family-relation {
+  text-align: center;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-mid);
+  letter-spacing: 0;
+}
+
+.family-name {
+  text-align: left;
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--text-dark);
+  letter-spacing: 0;
 }
 
 /* CONTACT */
