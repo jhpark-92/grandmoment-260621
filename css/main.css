@@ -351,7 +351,7 @@ section + section {
 
 .family-line {
   display: grid;
-  grid-template-columns: 9.6em 4.4em 3.6em;
+  grid-template-columns: 9.6em 1.2em 2.2em 3.6em;
   align-items: baseline;
   white-space: nowrap;
 }
@@ -368,10 +368,18 @@ section + section {
   letter-spacing: 0;
 }
 
+.family-ui {
+  text-align: center;
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--text-mid);
+  letter-spacing: 0;
+}
+
 .family-relation {
   text-align: center;
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 400;
   color: var(--text-mid);
   letter-spacing: 0;
 }
