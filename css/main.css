@@ -1017,7 +1017,7 @@ section + section {
 }
 
 .account-who {
-  font-size: 12px;
+  font-size: 15px;
   color: var(--pink);
   letter-spacing: 1px;
   margin-bottom: 3px;
@@ -1025,7 +1025,7 @@ section + section {
 }
 
 .account-num {
-  font-size: 12px;
+  font-size: 15px;
   color: var(--text-mid);
   letter-spacing: 0.5px;
   font-family: 'Pretendard', sans-serif;
